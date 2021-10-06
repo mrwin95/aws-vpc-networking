@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Demonstration transit gateway
+
+Parameters:
+  VPCCidr:
+    Type: CommaDelimitedList
+    Default: "10.10.0.0/16 ,10.20.0.0/16, 10.30.0.0/16"
+Resources:
+  VPCA:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Select [0, !Ref VPCCidr]
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: VPC_A
+  VPCB:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Select [1, !Ref VPCCidr]
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: VPC_B
+  VPCC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Select [2, !Ref VPCCidr]
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: VPC_C
